@@ -24,7 +24,7 @@ Or install it yourself as:
 
 Add this to your model:
 
-has_textable :my_text
+    has_textable :my_text
 
 From then on, treat @model.my_text just like you would a standard ActiveRecord attribute.
 
