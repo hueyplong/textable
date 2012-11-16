@@ -28,6 +28,21 @@ Add this to your model:
 
 From then on, treat @model.my_text just like you would a standard ActiveRecord attribute.
 
+Also supports serialized hashes like so:
+
+    has_textable :your_hash, :as => 'Hash', :default => { :var_one => "One", :middle_boolean => true, :var_two => "Two" }
+
+Not a good idea for data that you might want to search on, or that needs it's own fields, but for things like
+settings you might not want to load all the time, or a bunch of color preferences, or anything where a table
+all to itself is overkill.
+
+Whatever you set in has_textable will act as default values if the row in question has no values saved, so you can add
+values and have them populated with defaults. Access them like so:
+
+    @model.your_hash[:var_one]
+
+Rock.
+
 ## Contributing
 
 1. Fork it
