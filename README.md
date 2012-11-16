@@ -22,6 +22,10 @@ Or install it yourself as:
 
 ## Usage
 
+Generate and run the migration for your table:
+
+    script/generate textable CreateTextableEntries
+     
 Add this to your model:
 
     has_textable :my_text
