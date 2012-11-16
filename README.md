@@ -1,6 +1,10 @@
 # Textable
 
-TODO: Write a gem description
+Rails utility for keeping TEXT fields out of your Model tables and in their
+own little world. Useful for MySQL table optimization if you have models
+that need TEXT fields and don't want to clutter your schema with them. Variable
+length fields like TEXT and BLOB will force MySQL to sort on disk, so moving
+those fields to their own table makes for nicer performance.
 
 ## Installation
 
@@ -18,7 +22,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add this to your model:
+
+has_textable :my_text
+
+From then on, treat @model.my_text just like you would a standard ActiveRecord attribute.
 
 ## Contributing
 
