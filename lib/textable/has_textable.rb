@@ -15,6 +15,7 @@ module Textable
           self.textables = {}
         end
         self.textables[name] = options
+        self.attr_accessible name
         
         has_one "#{name}".to_sym, :class_name => 'TextableEntry',
           :as => :item, :conditions => "textable_entry.item_fieldname = '#{name}'"
