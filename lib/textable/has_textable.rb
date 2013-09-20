@@ -10,8 +10,11 @@ module Textable
       def has_textable(name, options = {})
         send :include, InstanceMethods
 
-        write_inheritable_attribute(:textables, {}) if textables.nil?
-        textables[name] = options
+        unless self.respond_to? :textables
+          self.class_attribute :textables
+          self.textables = {}
+        end
+        self.textables[name] = options
         
         has_one "#{name}".to_sym, :class_name => 'TextableEntry',
           :as => :item, :conditions => "textable_entry.item_fieldname = '#{name}'"
@@ -65,10 +68,6 @@ module Textable
           end
         end
         
-      end
-
-      def textables
-        read_inheritable_attribute(:textables)
       end
 
     end
