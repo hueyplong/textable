@@ -1,5 +1,5 @@
 class TextableEntry < ActiveRecord::Base
-  belongs_to  :item, :polymorphic => true
+  belongs_to  :item, :polymorphic => true, :touch => true
 
   # Find or create the textable row
   def self.find_or_create_for(name, obj, options)
