@@ -11,6 +11,7 @@ class TextableEntry < ActiveRecord::Base
   
   private
   def touch_parent
+    return unless self.item.present?
     # using update_all to bypass the callbacks on the item class, since they could trigger a save, which would trigger an infinite loop
     self.item.class.update_all({:updated_at => Time.now}, ['id = ?', self.item.id])
   end
