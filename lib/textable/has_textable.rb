@@ -96,6 +96,8 @@ module Textable
         each_textable do |name, textable|
           textable.send(:save)
         end
+        # touch the parent if it wasn't just updated. use #to_i to skip past millisecond similarities
+        self.touch if self.updated_at.to_i != Time.now.to_i
       end
       
       def order_textable_hash(obj)
