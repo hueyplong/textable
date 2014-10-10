@@ -78,7 +78,13 @@ module Textable
 
       def textable_for(name)
         @_textables ||= {}
-        @_textables[name] ||= TextableEntry.find_or_create_for(name, self, self.class.textables[name])
+        return @_textables[name] if @_textables[name].present?
+        if self.persisted?
+          @_textables[name] = TextableEntry.find_or_create_for(name, self, self.class.textables[name])
+        else
+          @_textables[name] = TextableEntry.new :item_type => self.class.to_s, :item_fieldname => name
+        end
+        @_textables[name]
       end
       
       def store_textable_for(name, data)
