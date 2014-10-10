@@ -100,7 +100,11 @@ module Textable
       def save_textables
         logger.info("[Textable] Saving Textables...")
         each_textable do |name, textable|
-          textable.send(:save)
+          textable.failsafe self
+          textable.save
+          if textable.errors.present?
+            logger.info "[Textable] Could not save #{name} because #{textable.errors.full_messages}"
+          end
         end
         # touch the parent if it wasn't just updated. use #to_i to skip past millisecond similarities
         self.touch if self.updated_at.to_i != Time.now.to_i
