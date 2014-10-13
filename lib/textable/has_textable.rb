@@ -82,7 +82,7 @@ module Textable
         if self.persisted?
           @_textables[name] = TextableEntry.find_or_create_for(name, self, self.class.textables[name])
         else
-          @_textables[name] = TextableEntry.new :item_type => self.class.to_s, :item_fieldname => name
+          @_textables[name] = TextableEntry.new :item_type => TextableEntry.smart_type_for(self), :item_fieldname => name
         end
         @_textables[name]
       end
